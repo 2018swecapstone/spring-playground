@@ -4,8 +4,6 @@ import {LocationsService} from '../api';
 import {UserTypesService} from '../api';
 import {UsersService} from '../api';
 import {EventTypesService} from '../api';
-import {EventType} from '../api';
-import {User} from '../api';
 
 @Component({
     selector: 'app-event',
