@@ -1,10 +1,19 @@
-sudo: false
-language: java
-services:
-  - postgresql
-before_script:
-  - createdb H2MSDatabase
-notifications:
-    slack: 2018swecapstone:IPDjX0h4Za0ztVoCHZXAoq0q
+sudo: required
 addons:
-    postgresql: "9.4"
+  chrome: stable
+
+language: node_js
+node_js:
+- "node"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - cd frontend
+  - npm install
+
+script:
+  - ng build --prod --aot
+  - ng test
