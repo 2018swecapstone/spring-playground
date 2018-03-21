@@ -1,0 +1,15 @@
+export * from './compliance.service';
+import { ComplianceService } from './compliance.service';
+export * from './eventTypes.service';
+import { EventTypesService } from './eventTypes.service';
+export * from './events.service';
+import { EventsService } from './events.service';
+export * from './locations.service';
+import { LocationsService } from './locations.service';
+export * from './methods.service';
+import { MethodsService } from './methods.service';
+export * from './userTypes.service';
+import { UserTypesService } from './userTypes.service';
+export * from './users.service';
+import { UsersService } from './users.service';
+export const APIS = [ComplianceService, EventTypesService, EventsService, LocationsService, MethodsService, UserTypesService, UsersService];
