@@ -4,6 +4,7 @@ import edu.harvard.h2ms.domain.core.Answer;
 import edu.harvard.h2ms.domain.core.EventTemplate;
 import edu.harvard.h2ms.domain.core.Question;
 import edu.harvard.h2ms.domain.core.User;
+import edu.harvard.h2ms.domain.core.Location;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -26,6 +27,7 @@ public class RestConfig extends RepositoryRestConfigurerAdapter {
     config.exposeIdsFor(Answer.class);
     config.exposeIdsFor(EventTemplate.class);
     config.exposeIdsFor(User.class);
+    config.exposeIdsFor(Location.class);
   }
 
   /**

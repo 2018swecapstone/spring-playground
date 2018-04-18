@@ -14,9 +14,11 @@ import {
     MatIconModule,
     MatInputModule,
     MatListModule,
+    MatPaginatorModule,
     MatProgressBarModule,
     MatSelectModule,
     MatSidenavModule,
+    MatTableModule,
     MatTabsModule,
     MatToolbarModule
 } from '@angular/material';
@@ -41,17 +43,17 @@ import {UserEntityService} from './api/userEntity.service';
 import {ReportsComponent} from './reports/reports.component';
 import {ReportsService} from './reports/reports.service';
 import {AboutComponent} from './about/about.component';
-import {BASE_PATH} from './variables';
-import {Config} from './config/config';
-import {UserEmailService} from './user/service/user-email.service';
-import {
-    ForgotPasswordComponent,
-    SuccessfullySentPasswordRecoveryEmailComponent
-} from './forgot-password/forgot-password.component';
+import {LocationComponent} from './location/location.component';
+import {LocationEditComponent} from './location-edit/location-edit.component';
 import {
     ResetPasswordComponent,
     SuccessfullyResetPasswordComponent
 } from './reset-password/reset-password.component';
+import {
+    ForgotPasswordComponent,
+    SuccessfullySentPasswordRecoveryEmailComponent
+} from './forgot-password/forgot-password.component';
+import {UserEmailService} from './user/service/user-email.service';
 
 @NgModule({
     declarations: [
@@ -64,6 +66,8 @@ import {
         ExportComponent,
         ReportsComponent,
         FormSubmissionDialogComponent,
+        LocationComponent,
+        LocationEditComponent,
         SuccessfullySentPasswordRecoveryEmailComponent,
         SuccessfullyResetPasswordComponent,
         AboutComponent,
@@ -90,7 +94,9 @@ import {
         MatTabsModule,
         MatSelectModule,
         MatProgressBarModule,
-        MatDialogModule
+        MatDialogModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
     entryComponents: [
         FormSubmissionDialogComponent,

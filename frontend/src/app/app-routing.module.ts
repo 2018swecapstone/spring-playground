@@ -11,6 +11,8 @@ import {UsersResolverService} from './user/service/users-resolver.service';
 import {QuestionResolverService} from './questions/service/question-resolver.service';
 import {ReportsComponent} from './reports/reports.component';
 import {AboutComponent} from './about/about.component';
+import {LocationComponent} from './location/location.component';
+import {LocationEditComponent} from './location-edit/location-edit.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {UserByEmailResolverService} from './user/service/user-by-email-resolver.service';
@@ -35,9 +37,32 @@ const routes: Routes = [
     },
     {path: 'reports', component: ReportsComponent, canActivate: [AuthGuardService]},
     {path: 'export', component: ExportComponent, canActivate: [AuthGuardService]},
+    {
+        path: 'locations',
+        component: LocationComponent,
+        canActivate: [AuthGuardService],
+        resolve: {
+            locationResolver: LocationResolverService
+        }
+    },
+    {
+        path: 'locations/create',
+        component: LocationEditComponent,
+        canActivate: [AuthGuardService],
+        resolve: {
+            locationResolver: LocationResolverService
+        }
+    },
+    {
+        path: 'locations/:id/edit',
+        component: LocationEditComponent,
+        canActivate: [AuthGuardService],
+        resolve: {
+            locationResolver: LocationResolverService
+        }
+    },
     // TODO: route dashboard to the DashboardComponent when it is created.
     {path: 'dashboard', redirectTo: 'reports', pathMatch: 'full', canActivate: [AuthGuardService]}, // a protected page
-    // TODO: route password-recovery to the PasswordRecoveryComponent when it is created.
     {path: 'forgot-password', component: ForgotPasswordComponent},
     {path: 'reset-password/:email/:resetToken', component: ResetPasswordComponent},
     // todo: route route to dashboard when made
@@ -58,7 +83,7 @@ export const NAV_ITEMS: NavItem[] = [
         // new NavItem('Sensors', '/sensors'),
         // new NavItem('RFIDs', '/rfids'),
         // new NavItem('People', '/people'),
-        // new NavItem('Locations', '/locations'),
+        new NavItem('Locations', '/locations'),
         new NavItem('Privacy', '/privacy'),
         new NavItem('About', '/about'),
         new NavItem('Export All Observations', '/export')
