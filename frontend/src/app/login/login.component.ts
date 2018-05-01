@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.auth.logout();
+        this.userEmailService.removeEmail();
     }
 
     submit(email: string, password: string): void {
