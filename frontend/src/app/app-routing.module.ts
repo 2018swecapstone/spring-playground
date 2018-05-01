@@ -21,6 +21,7 @@ import {UserComponent} from './user/user.component';
  */
 const routes: Routes = [
     {path: 'login', component: LoginComponent},
+    {path: 'logout', component: LoginComponent},
     {path: 'privacy', component: PrivacyComponent},
     {path: 'about', component: AboutComponent},
     {

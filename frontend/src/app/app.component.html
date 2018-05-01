@@ -19,6 +19,11 @@
                     <h5 class="user-name">
                         {{ (user | async).firstName + ' ' + (user | async).lastName }}
                     </h5>
+                    <h2><a href="/logout">
+                        <mat-list-item class="nav-item">
+                            Log Out
+                        </mat-list-item>
+                    </a></h2>
                 </div>
                 <mat-divider *ngIf="user | async"></mat-divider>
 
