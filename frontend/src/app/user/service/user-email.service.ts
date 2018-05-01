@@ -23,4 +23,8 @@ export class UserEmailService {
         return stored;
     }
 
+    removeEmail() {
+        localStorage.removeItem(this.localStorageKey);
+    }
+
 }
