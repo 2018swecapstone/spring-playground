@@ -117,6 +117,7 @@ public class NotificationServiceImpl {
   private static boolean isTimeToNotify(Notification notification, User user) {
     String userEmail = user.getEmail();
     long lastNotificationTime = notification.getEmailLastNotifiedTimes().get(userEmail);
+    log.debug("*****lastNotificationTime " + lastNotificationTime);
 
     // interval interpretation mechanism
     String stringNotificationFrequency = user.getNotificationFrequency();
@@ -126,7 +127,7 @@ public class NotificationServiceImpl {
 
     // if set, get notification's user interal
     Long notificationSpecificInterval = notification.getEmailNotificationIntervals().get(userEmail);
-
+    log.debug("*****notificationSpecificInterval " + notificationSpecificInterval);
     // define how long to wait for each notification frequency
     if (notificationFrequency == NotificationFrequency.UNDEFINED) {
       notificationFrequency = NotificationFrequency.DAILY;
@@ -173,6 +174,7 @@ public class NotificationServiceImpl {
   public void subscribeUserNotification(
       User user, Notification notification, Long notificationInterval) {
 
+    log.debug("****************setting notificationInterval" + notificationInterval);
     notification.addUser(user);
     notification.setEmailNotificationInterval(user.getEmail(), notificationInterval);
 

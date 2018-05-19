@@ -37,15 +37,62 @@ public abstract class AbstractReportWorkerComplianceWarning implements ReportWor
 
   long REPORTINGINTERVAL = NotificationFrequency.WEEKLY.seconds;
 
+  public final String COMPLIANCETHRESHOLD = "complianceThreshold";
+
   @Override
   public String getType() {
     return "abstractComplianceWarning";
   }
 
   @Override
-  public String createReport() {
-    List<Event> events = new ArrayList<>();
+  public String createReport(Map<String, String> notificationParameters) {
 
+    double complianceThreshold = 0.80;
+    if (notificationParameters != null && notificationParameters.containsKey(COMPLIANCETHRESHOLD)) {
+      try {
+        complianceThreshold = Double.parseDouble(notificationParameters.get(COMPLIANCETHRESHOLD));
+
+      } catch (NumberFormatException e) {
+        log.error("complianceThreshold has wrong number format.  Falling back to default.");
+      }
+    }
+
+    Map<Question, Map<User, Double>> allComplianceResult = getComplianceResult();
+
+    /** find violators */
+    int violatorCount = 0;
+    Map<Question, Map<User, Double>> allViolators = new HashMap<>();
+    for (Question q : allComplianceResult.keySet()) {
+      Map<User, Double> allQuestionViolators = new HashMap<>();
+      for (User u : allComplianceResult.get(q).keySet()) {
+        Double r = allComplianceResult.get(q).get(u);
+        if (r < complianceThreshold) {
+          allQuestionViolators.put(u, r);
+          violatorCount++;
+        }
+      }
+      allViolators.put(q, allQuestionViolators);
+    }
+
+    String ans = createCsvReport(allViolators);
+    ans =
+        "There were "
+            + violatorCount
+            + " violations below threshold of "
+            + complianceThreshold
+            + "\n"
+            + "============================\n"
+            + "CSV:\n"
+            + "============================\n"
+            + "\"Question\",\"userEmail\",\"complianceRate\"\n"
+            + ans;
+    return ans;
+  }
+
+  /** collect user compliance data */
+  protected Map<Question, Map<User, Double>> getComplianceResult() {
+
+    List<Event> events = new ArrayList<>();
     // for all questions:
     Map<Question, Map<User, Double>> allComplianceResult = new HashMap<>();
     Hibernate.initialize(questionRepository);
@@ -76,7 +123,12 @@ public abstract class AbstractReportWorkerComplianceWarning implements ReportWor
       }
     }
 
-    // Create data for CSV-like string output
+    return allComplianceResult;
+  }
+
+  /** Create data for CSV-like string output */
+  protected String createCsvReport(Map<Question, Map<User, Double>> allComplianceResult) {
+
     List<List<String>> data = new ArrayList<List<String>>();
     List<String> row = new ArrayList<String>();
     for (Question question : allComplianceResult.keySet()) {

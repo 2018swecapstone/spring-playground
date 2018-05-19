@@ -71,6 +71,9 @@ public class Notification {
   @Column(name = "notification_body")
   private String notificationBody;
 
+  @ElementCollection(fetch = FetchType.EAGER)
+  Map<String, String> notificationParameters;
+
   // dummy constructor
   public Notification() {
     super();
@@ -82,6 +85,19 @@ public class Notification {
     this.reportType = reportType;
     this.notificationTitle = notificationTitle;
     this.notificationBody = notificationBody;
+  }
+
+  public Notification(
+      String name,
+      String reportType,
+      String notificationTitle,
+      String notificationBody,
+      Map<String, String> notificationParameters) {
+    this.name = name;
+    this.reportType = reportType;
+    this.notificationTitle = notificationTitle;
+    this.notificationBody = notificationBody;
+    this.notificationParameters = notificationParameters;
   }
 
   public void addUser(User user) {
@@ -145,6 +161,8 @@ public class Notification {
     this.notificationBody = notificationBody;
   }
 
+  // Notified Times
+
   public Map<String, Long> getEmailLastNotifiedTimes() {
     return this.emailLastNotifiedTimes;
   }
@@ -156,6 +174,22 @@ public class Notification {
   public void setEmailLastNotifiedTime(String email, Long unixtime) {
     this.emailLastNotifiedTimes.put(email, unixtime);
   }
+
+  // Parameters
+
+  public Map<String, String> getNotificationParameters() {
+    return this.notificationParameters;
+  }
+
+  public void setNotificationParameters(Map<String, String> notificationParameters) {
+    this.notificationParameters = notificationParameters;
+  }
+
+  public void setNotificationParameter(String key, String value) {
+    this.notificationParameters.put(key, value);
+  }
+
+  // Notification Intervals
 
   public Map<String, Long> getEmailNotificationIntervals() {
     return this.emailNotificationIntervals;
